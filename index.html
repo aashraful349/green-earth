@@ -14,11 +14,17 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- stylesheet -->
     <link rel="stylesheet" href="./style/style.css">
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
     <header>
-        <div class="navbar bg-[#15803D] shadow-sm">
+        <div class="navbar bg-[#15803D] shadow-sm px-12 text-white">
             <div class="navbar-start">
                 <div class="dropdown">
                     <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
@@ -30,40 +36,42 @@
                     </div>
                     <ul tabindex="-1"
                         class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-                        <li><a>Item 1</a></li>
+                        <li><a>About</a></li>
                         <li>
-                            <a>Parent</a>
-                            <ul class="p-2">
-                                <li><a>Submenu 1</a></li>
-                                <li><a>Submenu 2</a></li>
-                            </ul>
+                            <a>Gallery</a>
                         </li>
-                        <li><a>Item 3</a></li>
+                        <li><a>Plant a Tree</a></li>
                     </ul>
                 </div>
                 <a class="btn btn-ghost text-xl">Green Earth</a>
             </div>
             <div class="navbar-center hidden lg:flex">
                 <ul class="menu menu-horizontal px-1">
-                    <li><a>Item 1</a></li>
-                    <li>
-                        <details>
-                            <summary>Parent</summary>
-                            <ul class="p-2 bg-base-100 w-40 z-1">
-                                <li><a>Submenu 1</a></li>
-                                <li><a>Submenu 2</a></li>
-                            </ul>
-                        </details>
-                    </li>
-                    <li><a>Item 3</a></li>
+                    <li><a>About</a></li>
+                    <li><a>Gallery</a></li>
+                    <li><a>Plant a Tree</a></li>
                 </ul>
             </div>
             <div class="navbar-end">
-                <a class="btn ">Plant a Tree</a>
+                <a class="btn rounded-3xl bg-[#FACC15] text-[#15803D]">Plant a Tree</a>
             </div>
         </div>
     </header>
 
+    <section class="banner bg-[#CFF0DC] w-full h-[383px] flex justify-between">
+        <div class="image1">
+            <img src="./assets/hero-leaf1.png">
+        </div>
+        <div class="text text-center py-24 flex flex-col gap-4 items-center">
+            <h1 class="text-4xl font-bold">Plant a Tree, Grow a Future</h1>
+            <p>Join our mission to plant 1 million trees and make the Earth greener for future generations.</p>
+            <a class="btn rounded-3xl  bg-[#FACC15] text-[#15803D] w-[140px]">Get Involved</a>
+
+        </div>
+        <div class="image2">
+            <img src="./assets/hero-leaf2.png">
+        </div>
+    </section>
 
 
     <script src="./script/index.js"></script>
