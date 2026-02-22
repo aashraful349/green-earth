@@ -61,12 +61,54 @@ const displayDetails=plants=>{
                     <p class="type bg-[#DCFCE7] text-[#15803D] rounded-2xl text-[14px] px-3">${plant.category}</p>
                     <p class="price font-semibold"><i class="fa-solid fa-bangladeshi-taka-sign"></i>${plant.price}</p>
                 </div>
-                <button class="btn bg-[#15803D] text-white rounded-2xl w-full mt-2">Add to Cart</button>
+                <button onclick="addToCart('${plant.name}',${plant.price})" class="btn bg-[#15803D] text-white rounded-2xl w-full mt-2">Add to Cart</button>
             </div>
         `;
         cardContainer.appendChild(div);
     }
 
+}
+
+
+const addToCart=(name,price)=>{
+    const cartDiv=document.getElementById('cart-items');
+    
+    // Check if item already exists in cart
+    const existingItems = cartDiv.querySelectorAll('#cart-item');
+    let itemFound = false;
+    
+    for(let item of existingItems){
+        const itemName = item.querySelector('h2').textContent;
+        if(itemName === name){
+            // Item exists, increase quantity
+            const quantitySpan = item.querySelector('.quantity');
+            quantitySpan.textContent = parseInt(quantitySpan.textContent) + 1;
+            itemFound = true;
+            break;
+        }
+    }
+    
+    // If item doesn't exist, add new item
+    if(!itemFound){
+        const div=document.createElement('div');
+        div.innerHTML=`
+        <div id="cart-item" class="bg-[#F0FDF4] rounded-lg p-3 flex items-center justify-between">
+                        <div class="">
+                            <h2 class="font-semibold text-[14px]">${name}</h2>
+                            <p class="text-[#8898af] text-[16px]"><i
+                                    class="fa-solid fa-bangladeshi-taka-sign"></i><span class="price">${price}</span> x <span class="quantity">1</span></p>
+                        </div>
+                        <button onclick="removeFromCart(this)" class="text-[#8898af]"><i class="fa-solid fa-xmark"></i></button>
+                    </div>
+        `;
+        cartDiv.appendChild(div);
+    }
+}
+
+
+
+const removeFromCart=(btn)=>{
+    btn.parentNode.remove();
 }
 
 
