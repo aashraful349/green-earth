@@ -24,7 +24,7 @@
 
 <body>
     <header>
-        <div class="navbar bg-[#15803D] shadow-sm px-12 text-white">
+        <div class="navbar bg-[#15803D] shadow-sm px-12 max-sm:px-2 text-white">
             <div class="navbar-start">
                 <div class="dropdown">
                     <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
@@ -35,7 +35,7 @@
                         </svg>
                     </div>
                     <ul tabindex="-1"
-                        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow bg-green-500">
                         <li><a>About</a></li>
                         <li>
                             <a>Gallery</a>
@@ -59,7 +59,7 @@
     </header>
 
     <section class="banner bg-[#CFF0DC] w-full h-[383px] flex justify-between">
-        <div class="image1">
+        <div class="image1 max-sm:hidden">
             <img src="./assets/hero-leaf1.png">
         </div>
         <div class="text text-center py-24 flex flex-col gap-4 items-center">
@@ -68,25 +68,29 @@
             <a class="btn rounded-3xl  bg-[#FACC15] text-[#15803D] w-[140px]">Get Involved</a>
 
         </div>
-        <div class="image2">
+        <div class="image2 max-sm:hidden">
             <img src="./assets/hero-leaf2.png">
         </div>
     </section>
 
-    <section class="content px-12 py-16 bg-[#F0FDF4] flex ">
+    <section class="content px-12 py-16 bg-[#F0FDF4] flex max-sm:flex-col ">
         <div id="category-container" class="max-w-[15.625rem]">
             <h3 class="font-semibold text-2xl">Categories</h3>
             <p onclick="loadAllTrees()" id="all-trees-btn"
                 class="category-btn cursor-pointer rounded px-1 py-1 hover:bg-[#15803d] hover:text-white ">All Trees</p>
         </div>
 
-        <div id="card-container" class="grid grid-cols-3 gap-6 px-5 pt-2">
+        <div id="loader" class="w-full flex justify-center py-8 hidden">
+            <span class="loading loading-spinner loading-lg text-[#15803D]"></span>
+        </div>
+
+        <div id="card-container" class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-5 pt-2">
         </div>
 
         <div id="cart-section" class="bg-white rounded-xl mt-3 min-w-50 p-3">
             <h2 class="text-[20px] font-semibold">Your Cart</h2>
             <div id="cart-items" class="flex flex-col gap-3">
-                
+
             </div>
 
             <div class="total flex justify-between mt-2 text-[16px]">
@@ -100,10 +104,12 @@
     <section class="about-campaign bg-[#F0FDF4] ">
         <div class="flex flex-col gap-6 px-12 py-16 items-center max-w-[1090px] min-h-[610px] justify-between mx-auto">
             <h1 class="font-semibold text-4xl">About the Campaign</h1>
-            <div class="flex items-center gap-6">
-                <img class="max-h-[88rem] max-w-[88rem]" src="./assets/about.png" alt="" srcset="">
+            <div class="flex max-sm:flex-col items-center gap-6">
+                <img class="max-h-[88rem] max-w-[88rem] max-sm:hidden" src="./assets/about.png" alt="" srcset="">
                 <div class="text-field text-[#8898af]">
-                    <p>Green Earth is a global tree plantation initiative dedicated to fighting climate change. Since our start, we’ve planted over 500,000 trees worldwide. By joining our campaign, you help restore forests, create habitats for wildlife, and combat global warming.</p>
+                    <p>Green Earth is a global tree plantation initiative dedicated to fighting climate change. Since
+                        our start, we’ve planted over 500,000 trees worldwide. By joining our campaign, you help restore
+                        forests, create habitats for wildlife, and combat global warming.</p>
                     <ul class="list-disc list-inside px-2">
                         <li>Restoration of natural habitats</li>
                         <li>Improvement of air quality</li>
@@ -119,7 +125,7 @@
         <div class="px-12 py-16">
             <h1 class="text-4xl font-semibold text-center">Our Impact</h1>
             <div class="flex justify-center mt-8">
-                <div class="grid grid-cols-3 text-center gap-6">
+                <div class="grid grid-cols-3 max-sm:grid-cols-1 text-center gap-6">
                     <div class="bg-white p-4 rounded-xl shadow-md">
                         <h2 class="text-xl font-bold text-green-800">500k+</h2>
                         <p>Trees Planted</p>
@@ -144,7 +150,8 @@
                 <form action="">
                     <div class="flex flex-col gap-4 p-6">
                         <input type="text" placeholder="Your Name" class="input input-bordered w-full max-w-xs">
-                        <input type="email" placeholder="Your Email Adress" class="input input-bordered w-full max-w-xs">
+                        <input type="email" placeholder="Your Email Adress"
+                            class="input input-bordered w-full max-w-xs">
                         <input type="text" placeholder="Number of Trees" class="input input-bordered w-full max-w-xs">
                         <button class="btn bg-[#FACC15] text-[#15803D] rounded-3xl w-full">Donate Now</button>
                     </div>
@@ -157,6 +164,26 @@
     <section class="bg-[#14532d]">
         <p class="text-center py-2">© 2025 Green Earth. All Rights Reserved.</p>
     </section>
+
+    <dialog id="plant-modal" class="modal">
+        <div class="modal-box max-w-2xl">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+            <div class="flex flex-col gap-4">
+                <img id="modal-image" class="rounded-xl w-full h-56 object-cover" src="" alt="">
+                <h3 id="modal-title" class="text-2xl font-semibold"></h3>
+                <p id="modal-description" class="text-[#71717A]"></p>
+                <div class="flex flex-wrap gap-3 items-center">
+                    <span id="modal-category" class="bg-[#DCFCE7] text-[#15803D] rounded-2xl text-[14px] px-3 py-1"></span>
+                    <span class="font-semibold"><i class="fa-solid fa-bangladeshi-taka-sign"></i><span id="modal-price"></span></span>
+                </div>
+            </div>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
 
 
     <script src="./script/index.js"></script>
