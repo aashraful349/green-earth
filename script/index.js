@@ -72,27 +72,24 @@ const displayDetails=plants=>{
 
 const addToCart=(name,price)=>{
     const cartDiv=document.getElementById('cart-items');
-    
-    // Check if item already exists in cart
     const existingItems = cartDiv.querySelectorAll('#cart-item');
     let itemFound = false;
     
     for(let item of existingItems){
         const itemName = item.querySelector('h2').textContent;
         if(itemName === name){
-            // Item exists, increase quantity
             const quantitySpan = item.querySelector('.quantity');
             quantitySpan.textContent = parseInt(quantitySpan.textContent) + 1;
+            updateTotal(price);
             itemFound = true;
             break;
         }
     }
     
-    // If item doesn't exist, add new item
     if(!itemFound){
         const div=document.createElement('div');
         div.innerHTML=`
-        <div id="cart-item" class="bg-[#F0FDF4] rounded-lg p-3 flex items-center justify-between">
+        <div id="cart-item" class="bg-[#F0FDF4] rounded-lg p-3 flex items-center justify-between" data-price="${price}">
                         <div class="">
                             <h2 class="font-semibold text-[14px]">${name}</h2>
                             <p class="text-[#8898af] text-[16px]"><i
@@ -102,14 +99,29 @@ const addToCart=(name,price)=>{
                     </div>
         `;
         cartDiv.appendChild(div);
+        updateTotal(price);
     }
 }
 
 
 
 const removeFromCart=(btn)=>{
-    btn.parentNode.remove();
+    const cartItem = btn.parentNode;
+    const price = parseFloat(cartItem.getAttribute('data-price'));
+    const quantity = parseInt(cartItem.querySelector('.quantity').textContent);
+    const totalRemoval = price * quantity;
+    updateTotal(-totalRemoval);
+    cartItem.remove();
 }
 
 
+const updateTotal=(amount)=>{
+    const totalElement=document.querySelector('.fprice');
+    let currentTotal=parseFloat(totalElement.textContent);
+    if(isNaN(currentTotal)){
+        currentTotal=0;
+    }
+    const newTotal=currentTotal+amount;
+    totalElement.textContent=newTotal.toFixed(2);
+}
 loadCategory();
